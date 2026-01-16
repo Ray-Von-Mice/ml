@@ -15,6 +15,7 @@ class Solution:
                 except KeyError:
                     emIndx[email] = []
                 emIndx[email].append(i[0])
+        # To find neighbors, use usr_email_index -> to find usr_email_index -> use the mapping we created, with each email -> to find email, use input accounts with enumerate n
         result = []
         visited =[False] * n
         for m in range(n):
