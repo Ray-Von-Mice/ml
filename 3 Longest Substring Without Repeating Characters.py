@@ -3,13 +3,12 @@ class Solution:
         n = len(s)
         if n == 0 or n == 1:
             return n
-        chIndex = defaultdict(int)
-        result, left = 0, -1
-        for indx, char in enumerate(s):
-            # charactor appeared before, if recorded index greater than slide window left bound (charactor is within current substr), upgrade left (move window left bound)
-            if (char in chIndex) and chIndex.get(char) > left:
-                left = chIndex.get(char)
-            chIndex[char] = indx
-            result = max(result, indx - left)
-        
-        return result
+        left, subStr = 0, 0
+        c_set = set()
+        for i in range(n):
+            while s[i] in c_set:
+                c_set.remove(s[left])
+                left += 1
+            c_set.add(s[i])
+            subStr = max(subStr, i - left + 1)
+        return subStr
