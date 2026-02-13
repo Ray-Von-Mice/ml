@@ -16,7 +16,7 @@ class Solution:
         
         curr = head
         while curr:
-            new_node = Node(curr.val, curr.next, curr.random)
+            new_node = Node(curr.val)
             # mapping old nodes with respective new nodes
             mp[curr] = new_node
             curr = curr.next
