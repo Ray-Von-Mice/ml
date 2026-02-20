@@ -24,7 +24,7 @@ class Solution:
         # prev.next still points to original pos[left] node, now the reversed tail
         reversedTail = prev.next
 
-        # disconnect and points prev.next to the reversed head, p
+        # disconnect and points prev.next to the reversed head -- p
         prev.next = p
         reversedTail.next = curr
 
