@@ -13,27 +13,20 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        inresult = ""
-        def inodrdfs(node):
-            if not node:
-                return
-            nonlocal inresult
-            inodrdfs(node.left)
-            inresult.append(str(node.val)+"#")
-            inodrdfs(node.right)
         
-        preresult = ""
+        preresult = []
         def preodrdfs(node):
-            if not node:
-                return
             nonlocal preresult
-            preresult.append(str(node.val)+"#")
+            if not node:
+                preresult.append("O")
+                return
+            preresult.append(str(node.val))
             preodrdfs(node.left)
             preodrdfs(node.right)
         
-        inodrdfs(root)
         preodrdfs(root)
-        return inresult + "||" + preresult
+        result = "#".join(preresult)
+        return result
         
 
     def deserialize(self, data):
@@ -42,27 +35,20 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        orders = data.split("||")
-        inOrder, preOrder = orders[0].split("#"), orders[1].split("#")
-
-        inOrder_dict, n = {}, len(preOrder)
-        for val, indx in enumerate(inOrder):
-            inOrder_dict[val] = indx
-        
+        preOrder = data.split("#")
         curr_index = 0
-        def depthTraverseBuild(left, right):
-            if left > right:
-                return None
+        def depthTraverseBuild():
             nonlocal curr_index
-            curr_value = preOrder[curr_index]
-            curr = TreeNode(curr_value)
+            if preOrder[curr_index] == "O":
+                curr_index += 1
+                return None
+            node = TreeNode(int(preOrder[curr_index]), None, None)
             curr_index += 1
-            centr = inOrder_dict[curr_value]
-            curr.left = depthTraverseBuild(left, centr - 1)
-            curr.right = depthTraverseBuild(centr + 1, right)
-            return curr
+            node.left = depthTraverseBuild()
+            node.right = depthTraverseBuild()
+            return node
 
-        root = depthTraverseBuild(0, n - 1)
+        root = depthTraverseBuild()
         return root
         
 
