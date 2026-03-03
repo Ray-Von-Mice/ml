@@ -10,6 +10,7 @@ class Solution:
             subset.append(nums[indx])
             dfs(indx + 1)
             subset.pop()
+            # skip duplicate nums
             while indx + 1 < n and nums[indx] == nums[indx + 1]:
                 indx += 1
             dfs(indx + 1)
