@@ -4,6 +4,7 @@ class Solution:
             return nums[0]
         if len(nums) == 2:
             return max(nums[0], nums[1])
+
         n = len(nums)
         arr = [-1] * n
         # 40, 1, 1, 1, 1, 40
